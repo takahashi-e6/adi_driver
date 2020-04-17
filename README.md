@@ -11,11 +11,11 @@ Currently supported devices are:
 - [ADXL345](http://www.analog.com/en/products/mems/accelerometers/adxl345.html):
   - 3-Axis, ±2 g/±4 g/±8 g/±16 g Digital Accelerometer
   - The support for this device is experimental
-  
+
 - [ADIS16495](http://www.analog.com/en/products/mems/inertial-measurement-units/adis16495.html)
   - Higher grade MEMS IMU
   - The support for this device is experimental
-  
+
 You need a SPI interface on your PC to communicate with device. This
 package supports
 [Devantech's USB-IIS](https://www.robot-electronics.co.uk/htm/usb_iss_tech.htm)
@@ -166,8 +166,72 @@ support for this device is experimental.
 
 USB-ISS 3.3V output can supply up to 80mA.
 ADIS16495 supply current is 89mA(typical). External Linear Regulator(LDO) help power supply requirment for ADIS16495.
-The picture used ADP125(Evaluation board) which is 500mA LDO for 5V to 3.3V. The 5V is from USB-ISS 5V pin. 
+The picture used ADP125(Evaluation board) which is 500mA LDO for 5V to 3.3V. The 5V is from USB-ISS 5V pin.
 
 <div align="center">
   <img src="doc/adis16495_schematic2.jpg" width="60%"/>
 </div>
+
+
+## ADIS16xxx-TR
+
+### Overview
+
+TODO
+
+
+### Connection
+
+TODO
+
+### Quick start
+Connect your sensor to USB port. Run the launch file as:
+
+``` $ roslaunch adi_driver adis_rcv_csv.launch ```
+
+You can see the model of ADIS16470 breakout board in rviz panel.
+
+### Topics
+- /imu/data_raw (sensor_msgs/Imu)
+
+  IMU raw output. It contains angular velocities and linear
+  accelerations. The orientation is always unit quaternion.  
+  example:
+
+```
+・・・
+angular_velocity:
+  x: -0.0116995596098
+  y: -0.00314657808936
+  z: 0.000579557116093
+angular_velocity_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+linear_acceleration:
+  x: 0.302349234658
+  y: -0.303755252655
+  z: 9.87837325989
+linear_acceleration_covariance: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+・・・
+```
+
+- /diagnostics (diagnostic_msgs/DiagnosticArray)
+
+  Sensor state output.  
+  example:
+
+```
+・・・
+header:
+  seq: 80
+  stamp:
+    secs: 1587104853
+    nsecs: 921894057
+  frame_id: ''
+status:
+  -
+    level: 0
+    name: "adis_rcv_csv_node: imu"
+    message: "OK"
+    hardware_id: "ADIS16470"
+    values: []
+・・・
+```

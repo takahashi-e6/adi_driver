@@ -69,7 +69,7 @@ public:
     cant_rcv_cnt_ = 0;
     
     // Data publisher
-    imu_data_pub_ = node_handle_.advertise<sensor_msgs::Imu>("data_raw", 100);
+    imu_data_pub_ = node_handle_.advertise<sensor_msgs::Imu>("/imu/data_raw", 100);
     updater_.add("imu", this, &ImuNodeRcvCsv::diagnostic);
   }
 
