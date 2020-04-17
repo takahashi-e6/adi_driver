@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(adi_driver)
 
-find_package(catkin REQUIRED COMPONENTS roscpp sensor_msgs std_srvs roslint)
+find_package(catkin REQUIRED COMPONENTS roscpp sensor_msgs std_srvs roslint tf)
 
 catkin_package(INCLUDE_DIRS include CATKIN_DEPENDS roscpp sensor_msgs std_srvs)
 
@@ -19,6 +19,17 @@ target_link_libraries(adxl345_node ${catkin_LIBRARIES})
 
 #Add adis16495_node
 install(TARGETS adis16470_node adxl345_node adis16495_node
+  ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+# Added by Technoroad
+add_executable(adis_rcv_csv_node
+  src/rcv_csv/adis_rcv_csv_node.cpp
+  src/rcv_csv/adis_rcv_csv.cpp)
+target_link_libraries(adis_rcv_csv_node ${catkin_LIBRARIES})
+install(TARGETS adis_rcv_csv_node
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
